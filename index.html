@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AGROSENSE — Autonomous Agricultural Decision Intelligence Platform</title>
+  <meta name="description" content="An enterprise agronomic decision platform that transforms soil chemistry, micro-meteorology, foliar pathology, and farm telemetry into empirical recommendations for high yield and resource efficiency." />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Leaflet GIS Map CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- Custom AgroSense Styles -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="bg-[#060d0a] text-slate-100 font-['Plus_Jakarta_Sans'] antialiased selection:bg-emerald-500 selection:text-black h-screen w-screen overflow-hidden m-0 p-0">
+  <div id="app" class="h-full w-full overflow-hidden"></div>
+
+  <!-- Application Main Production Bundle (Zero-CORS: Works natively in file://, GitHub Pages, and Localhost) -->
+  <script src="dist/agrosense.bundle.js"></script>
+</body>
+</html>

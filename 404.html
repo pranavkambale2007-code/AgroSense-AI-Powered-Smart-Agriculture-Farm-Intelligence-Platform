@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgroSense — Redirecting</title>
+  <script>
+    // GitHub Pages SPA Single-Page App Hash Redirection
+    // If a user accesses a non-existent static route, redirect to index.html with the route as a hash
+    (function() {
+      const path = window.location.pathname;
+      const repoBase = path.split('/')[1] || '';
+      // Retain hash or route
+      window.location.replace('./index.html' + window.location.hash);
+    })();
+  </script>
+</head>
+<body style="background-color: #060d0a; color: #10b981; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0;">
+  <div style="text-align: center;">
+    <h2>🌾 AgroSense Platform</h2>
+    <p>Redirecting to application...</p>
+    <a href="./index.html" style="color: #34d399; text-decoration: underline;">Click here if not redirected automatically</a>
+  </div>
+</body>
+</html>
