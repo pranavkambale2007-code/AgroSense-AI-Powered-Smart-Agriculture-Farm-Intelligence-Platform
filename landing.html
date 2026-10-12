@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgroSense — AI-Powered Smart Agriculture & Farm Intelligence Platform</title>
+  <meta name="description" content="AgroSense brings crop recommendations, plant disease analysis, and farm intelligence into one platform to help users make more informed agricultural decisions." />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Newsreader (Editorial Serif), Outfit (Display Sans), Plus Jakarta Sans (Body), JetBrains Mono (Data) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --bg-ivory: #fbfaf7;
+      --bg-surface: #ffffff;
+      --bg-subtle: #f5f2ea;
+      --bg-warm-tint: #eee9dc;
+      --border-warm: #e5dfd2;
+      --border-strong: #d2c9b8;
+      
+      --brand-forest: #1b4332;
+      --brand-forest-dark: #123325;
+      --brand-forest-light: #2d6a4f;
+      --brand-accent-tint: #eaf2ec;
+      
+      --accent-olive: #4d6b53;
+      --accent-soil: #7c4a27;
+      --accent-soil-light: #965b32;
+      
+      --text-charcoal: #1a2420;
+      --text-body: #3c4c44;
+      --text-muted: #67776f;
+      --text-subtle: #8a9890;
+      
+      --status-amber: #b45309;
+      --status-amber-bg: #fef3c7;
+      --status-red: #b91c1c;
+      --status-red-bg: #fee2e2;
+      --status-blue: #1d4ed8;
+      --status-blue-bg: #dbeafe;
+
+      --font-serif: 'Newsreader', Georgia, serif;
+      --font-display: 'Outfit', sans-serif;
+      --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      font-family: var(--font-body);
+      background-color: var(--bg-ivory);
+      color: var(--text-charcoal);
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    .font-serif { font-family: var(--font-serif); }
+    .font-display { font-family: var(--font-display); }
+    .font-mono { font-family: var(--font-mono); }
+
+    /* Custom Editorial Scrollbar */
+    ::-webkit-scrollbar { width: 7px; height: 7px; }
+    ::-webkit-scrollbar-track { background: #f5f2ea; }
+    ::-webkit-scrollbar-thumb { background: #c5bdae; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #9d9382; }
+
+    /* Editorial Navbar */
+    .editorial-nav {
+      background: rgba(251, 250, 247, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-warm);
+    }
+
+    /* Editorial Surface Cards */
+    .editorial-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-warm);
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(27, 67, 50, 0.04), 0 4px 12px rgba(27, 67, 50, 0.02);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .editorial-card:hover {
+      border-color: var(--border-strong);
+      box-shadow: 0 4px 16px rgba(27, 67, 50, 0.06);
+    }
+
+    /* Editorial Scorecard Tile */
+    .scorecard-tile {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-warm);
+      border-radius: 8px;
+    }
+
+    /* Print / Editorial rule */
+    .editorial-divider {
+      border-top: 1px solid var(--border-warm);
+    }
+  </style>
+</head>
+<body class="selection:bg-emerald-900 selection:text-white">
+
+  <!-- ========================================================= -->
+  <!-- 1. EDITORIAL NAVIGATION BAR                                -->
+  <!-- ========================================================= -->
+  <header class="editorial-nav sticky top-0 z-50 w-full transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
+      
+      <!-- Brand Identity -->
+      <a href="./landing.html" class="flex items-center gap-3 group text-decoration-none">
+        <div class="w-9 h-9 rounded-lg bg-[#1b4332] text-white flex items-center justify-center shadow-sm">
+          <i data-lucide="sprout" class="w-5 h-5 text-emerald-200"></i>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-lg font-bold tracking-tight text-[#1b4332] font-display leading-tight">AgroSense</span>
+          <span class="text-[10px] text-[#67776f] font-mono tracking-wide leading-none uppercase">Farm Intelligence</span>
+        </div>
+      </a>
+
+      <!-- Center Navigation Links -->
+      <nav class="hidden md:flex items-center gap-7 text-xs font-semibold text-[#3c4c44]">
+        <a href="#about" class="hover:text-[#1b4332] transition py-1">Overview</a>
+        <a href="#crop-intelligence" class="hover:text-[#1b4332] transition py-1">Crop Intelligence</a>
+        <a href="#disease-screening" class="hover:text-[#1b4332] transition py-1">Disease Screening</a>
+        <a href="#farm-twin" class="hover:text-[#1b4332] transition py-1">3D Farm Simulator</a>
+        <a href="#lifecycle-monitoring" class="hover:text-[#1b4332] transition py-1">Farm Monitoring</a>
+        <a href="#operational-workflow" class="hover:text-[#1b4332] transition py-1">Workflow</a>
+      </nav>
+
+      <!-- Right Action Controls -->
+      <div class="flex items-center gap-3">
+        <a href="./index.html#/crop-recommendation" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold text-[#1b4332] bg-[#f5f2ea] hover:bg-[#eee9dc] border border-[#e5dfd2] transition">
+          <i data-lucide="database" class="w-3.5 h-3.5 text-[#4d6b53]"></i>
+          <span>Sample Telemetry</span>
+        </a>
+
+        <!-- Primary CTA: Launch Platform -->
+        <a href="./index.html#/onboarding" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold text-white bg-[#1b4332] hover:bg-[#123325] transition shadow-sm">
+          <i data-lucide="layout-dashboard" class="w-4 h-4 text-emerald-200"></i>
+          <span>Explore AgroSense</span>
+        </a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-[#3c4c44] hover:text-[#1b4332] hover:bg-[#f5f2ea] transition" aria-label="Toggle navigation">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Dropdown Navigation -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-[#e5dfd2] bg-[#fbfaf7] px-4 py-3 space-y-2 text-xs font-semibold">
+      <a href="#about" class="block py-2 text-[#3c4c44] hover:text-[#1b4332]">Platform Overview</a>
+      <a href="#crop-intelligence" class="block py-2 text-[#3c4c44] hover:text-[#1b4332]">Crop Intelligence</a>
+      <a href="#disease-screening" class="block py-2 text-[#3c4c44] hover:text-[#1b4332]">Disease Screening</a>
+      <a href="#farm-twin" class="block py-2 text-[#3c4c44] hover:text-[#1b4332]">3D Farm Simulator</a>
+      <a href="#lifecycle-monitoring" class="block py-2 text-[#3c4c44] hover:text-[#1b4332]">Farm & Mandi Monitoring</a>
+      <a href="#operational-workflow" class="block py-2 text-[#3c4c44] hover:text-[#1b4332]">Operational Workflow</a>
+      <div class="pt-2 border-t border-[#e5dfd2] flex flex-col gap-2">
+        <a href="./index.html#/crop-recommendation" class="block w-full py-2 text-center rounded-lg bg-[#f5f2ea] text-[#1b4332] font-semibold border border-[#e5dfd2]">Explore Crop Intelligence</a>
+        <a href="./index.html#/onboarding" class="block w-full py-2 text-center rounded-lg bg-[#1b4332] text-white font-bold">Explore AgroSense</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================= -->
+  <!-- 2. EDITORIAL HERO SECTION                                  -->
+  <!-- ========================================================= -->
+  <section class="w-full relative pt-12 pb-16 sm:pb-20 border-b border-[#e5dfd2] bg-[#fbfaf7]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        
+        <!-- Left Hero Column: Concise Narrative & Clear CTAs -->
+        <div class="lg:col-span-7 space-y-6 text-left">
+          
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#eaf2ec] border border-[#cbe1d1] text-[#1b4332] text-xs font-mono font-semibold">
+            <span class="w-2 h-2 rounded-full bg-[#1b4332]"></span>
+            <span>AGRICULTURAL DECISION PLATFORM</span>
+          </div>
+
+          <h1 class="text-3xl sm:text-5xl lg:text-[3.25rem] font-bold text-[#1a2420] tracking-tight leading-[1.12] font-serif">
+            Better Farming Starts With Better Decisions.
+          </h1>
+
+          <p class="text-[#3c4c44] text-base sm:text-lg leading-relaxed max-w-2xl font-normal">
+            AgroSense brings crop recommendations, plant disease analysis, and farm intelligence into one platform to help users make more informed agricultural decisions.
+          </p>
+
+          <p class="text-[#67776f] text-xs sm:text-sm leading-relaxed max-w-2xl">
+            Designed for farmers, agricultural extension workers, and agronomists, AgroSense replaces guesswork with empirical soil testing data, micro-climate hazard evaluation, foliar computer vision screening, and local APMC market price discovery.
+          </p>
+
+          <!-- Core Action CTAs -->
+          <div class="flex flex-wrap items-center gap-3 pt-2">
+            <a href="./index.html#/onboarding" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-bold text-white bg-[#1b4332] hover:bg-[#123325] transition shadow-sm">
+              <i data-lucide="play" class="w-4 h-4 fill-white text-white"></i>
+              <span>Explore AgroSense</span>
+            </a>
+            <a href="./index.html#/crop-recommendation" class="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold text-[#1b4332] bg-[#ffffff] hover:bg-[#f5f2ea] border border-[#d2c9b8] transition shadow-xs">
+              <i data-lucide="sparkles" class="w-4 h-4 text-[#4d6b53]"></i>
+              <span>Explore Crop Intelligence</span>
+            </a>
+          </div>
+
+          <!-- Scientific Credibility Indicators -->
+          <div class="pt-6 border-t border-[#e5dfd2] grid grid-cols-3 gap-6 max-w-lg text-xs font-mono">
+            <div>
+              <span class="text-[#1b4332] font-bold block text-base sm:text-lg">69 Crops</span>
+              <span class="text-[#67776f] text-[11px] block mt-0.5 font-sans">Agronomic Profiles</span>
+            </div>
+            <div>
+              <span class="text-[#1b4332] font-bold block text-base sm:text-lg">271 Pathologies</span>
+              <span class="text-[#67776f] text-[11px] block mt-0.5 font-sans">Foliar Screening</span>
+            </div>
+            <div>
+              <span class="text-[#1b4332] font-bold block text-base sm:text-lg">5 Stages</span>
+              <span class="text-[#67776f] text-[11px] block mt-0.5 font-sans">Biological Timeline</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Hero Column: Authentic Agricultural Visual & Real Data Preview -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="editorial-card overflow-hidden border border-[#d2c9b8] bg-[#ffffff] p-2">
+            
+            <!-- Real Agricultural Field Photography -->
+            <div class="relative w-full h-64 sm:h-72 rounded-lg overflow-hidden bg-[#e5dfd2]">
+              <img 
+                src="images/smart_farm_hero_full_bg.jpg" 
+                alt="Agricultural field under empirical crop monitoring with healthy foliar canopy" 
+                class="w-full h-full object-cover object-center" 
+                loading="eager"
+              />
+              <div class="absolute top-3 left-3 bg-[#ffffff]/95 backdrop-blur-sm border border-[#d2c9b8] rounded-md px-2.5 py-1 text-[11px] font-mono text-[#1b4332] font-semibold shadow-xs">
+                Demonstration Plot: Nashik Vertisol (2.5 Acres)
+              </div>
+            </div>
+
+            <!-- Grounded Field Telemetry Card Below Photo -->
+            <div class="p-3.5 space-y-3">
+              <div class="flex items-center justify-between border-b border-[#e5dfd2] pb-2">
+                <span class="text-xs font-bold font-mono uppercase text-[#1a2420]">Soil Chemistry Baseline</span>
+                <span class="text-[10px] font-mono text-[#4d6b53] bg-[#eaf2ec] px-2 py-0.5 rounded border border-[#cbe1d1]">
+                  ICAR Benchmark
+                </span>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2 text-xs font-mono">
+                <div class="p-2 rounded bg-[#f5f2ea] border border-[#e5dfd2]">
+                  <span class="text-[10px] text-[#67776f] block">Nitrogen (N)</span>
+                  <span class="text-sm font-bold text-[#1b4332]">185 kg/ha</span>
+                  <span class="text-[10px] text-[#b45309] block font-sans">Moderate deficit</span>
+                </div>
+                <div class="p-2 rounded bg-[#f5f2ea] border border-[#e5dfd2]">
+                  <span class="text-[10px] text-[#67776f] block">Phosphorus (P)</span>
+                  <span class="text-sm font-bold text-[#1b4332]">42 kg/ha</span>
+                  <span class="text-[10px] text-[#2d6a4f] block font-sans">Adequate</span>
+                </div>
+                <div class="p-2 rounded bg-[#f5f2ea] border border-[#e5dfd2]">
+                  <span class="text-[10px] text-[#67776f] block">Soil pH Balance</span>
+                  <span class="text-sm font-bold text-[#1b4332]">6.8 pH</span>
+                  <span class="text-[10px] text-[#2d6a4f] block font-sans">Neutral root zone</span>
+                </div>
+                <div class="p-2 rounded bg-[#f5f2ea] border border-[#e5dfd2]">
+                  <span class="text-[10px] text-[#67776f] block">Rainfall Forecast</span>
+                  <span class="text-sm font-bold text-[#1d4ed8]">18.5 mm</span>
+                  <span class="text-[10px] text-[#1d4ed8] block font-sans">48h Precipitation</span>
+                </div>
+              </div>
+
+              <div class="pt-1 flex items-center justify-between text-[11px] text-[#67776f]">
+                <span>Top Recommendation: <strong class="text-[#1b4332]">Wheat (HD-2967)</strong></span>
+                <a href="./index.html#/crop-recommendation" class="text-[#1b4332] font-semibold hover:underline inline-flex items-center gap-1">
+                  <span>View Details</span>
+                  <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- 3. THE AGRICULTURAL PROBLEM: WHY EMPIRICAL DATA MATTERS   -->
+  <!-- ========================================================= -->
+  <section id="about" class="py-16 bg-[#ffffff] border-b border-[#e5dfd2]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+      
+      <div class="max-w-3xl space-y-2">
+        <span class="text-xs font-bold uppercase tracking-wider text-[#4d6b53] font-mono">THE AGRICULTURAL REALITY</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-[#1a2420] font-serif">
+          Why Modern Farming Requires Integrated Decision Intelligence
+        </h2>
+        <p class="text-xs sm:text-sm text-[#4b554e] leading-relaxed">
+          Traditional farming relies heavily on seasonal memory and supplier advice. In an era of unpredictable monsoons, nutrient-depleted soils, and volatile wholesale markets, isolated decisions carry high economic risks.
+        </p>
+      </div>
+
+      <!-- 4 Operational Bottlenecks Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        
+        <!-- Challenge 1 -->
+        <div class="p-5 rounded-xl bg-[#fbfaf7] border border-[#e5dfd2] space-y-3">
+          <div class="w-8 h-8 rounded-md bg-[#eee9dc] flex items-center justify-center text-[#7c4a27]">
+            <i data-lucide="test-tube-2" class="w-4 h-4"></i>
+          </div>
+          <h3 class="text-sm font-bold text-[#1a2420] font-display">Soil Nutrient Imbalance</h3>
+          <p class="text-xs text-[#67776f] leading-relaxed">
+            Over-application of urea and unverified NPK ratios leads to soil acidification and low nutrient absorption, costing farmers up to ₹4,000/acre in wasted inputs.
+          </p>
+        </div>
+
+        <!-- Challenge 2 -->
+        <div class="p-5 rounded-xl bg-[#fbfaf7] border border-[#e5dfd2] space-y-3">
+          <div class="w-8 h-8 rounded-md bg-[#eee9dc] flex items-center justify-center text-[#1d4ed8]">
+            <i data-lucide="cloud-rain" class="w-4 h-4"></i>
+          </div>
+          <h3 class="text-sm font-bold text-[#1a2420] font-display">Erratic Weather Shocks</h3>
+          <p class="text-xs text-[#67776f] leading-relaxed">
+            Sudden temperature spikes and unseasonal rains during flowering stages destroy pollen fertility, triggering up to 35% crop yield loss without early mitigation.
+          </p>
+        </div>
+
+        <!-- Challenge 3 -->
+        <div class="p-5 rounded-xl bg-[#fbfaf7] border border-[#e5dfd2] space-y-3">
+          <div class="w-8 h-8 rounded-md bg-[#eee9dc] flex items-center justify-center text-[#b91c1c]">
+            <i data-lucide="scan-line" class="w-4 h-4"></i>
+          </div>
+          <h3 class="text-sm font-bold text-[#1a2420] font-display">Delayed Pathogen Diagnosis</h3>
+          <p class="text-xs text-[#67776f] leading-relaxed">
+            Fungal blights and bacterial spots spread silently 5–7 days before extensive foliar lesions appear. Delayed chemical spraying allows infections to cross the economic injury threshold.
+          </p>
+        </div>
+
+        <!-- Challenge 4 -->
+        <div class="p-5 rounded-xl bg-[#fbfaf7] border border-[#e5dfd2] space-y-3">
+          <div class="w-8 h-8 rounded-md bg-[#eee9dc] flex items-center justify-center text-[#b45309]">
+            <i data-lucide="coins" class="w-4 h-4"></i>
+          </div>
+          <h3 class="text-sm font-bold text-[#1a2420] font-display">Mandi Price Opacity</h3>
+          <p class="text-xs text-[#67776f] leading-relaxed">
+            Lack of visibility into daily APMC mandi modal prices and seasonal arrival trends forces growers into distress sales below Minimum Support Price (MSP) benchmarks.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- 4. CORE FEATURES: PURPOSE-BUILT AGRONOMIC MODULES         -->
+  <!-- ========================================================= -->
+  <section id="features" class="py-16 sm:py-20 bg-[#fbfaf7] border-b border-[#e5dfd2]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+      
+      <!-- Section Header -->
+      <div class="max-w-3xl space-y-2">
+        <span class="text-xs font-bold uppercase tracking-wider text-[#4d6b53] font-mono">PLATFORM ARCHITECTURE</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-[#1a2420] font-serif">
+          Four Core Modules, Grounded in Real Agricultural Science
+        </h2>
+        <p class="text-xs sm:text-sm text-[#4b554e] leading-relaxed">
+          Each component is tailored to a critical stage of the crop lifecycle, combining empirical data models, computer vision screening, and interactive digital simulation.
+        </p>
+      </div>
+
+      <!-- =================================================== -->
+      <!-- Pillar 1: AI Crop Selection & Suitability           -->
+      <!-- =================================================== -->
+      <div id="crop-intelligence" class="editorial-card p-6 sm:p-8 bg-[#ffffff] border border-[#d2c9b8] space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#e5dfd2] pb-5">
+          <div class="space-y-1">
+            <div class="inline-flex items-center gap-2 text-xs font-mono text-[#4d6b53] font-semibold uppercase">
+              <span>Module 01</span>
+              <span>•</span>
+              <span>Soil & Climate Synthesis</span>
+            </div>
+            <h3 class="text-xl sm:text-2xl font-bold text-[#1a2420] font-serif">
+              Empirical Crop Selection & Suitability Engine
+            </h3>
+          </div>
+          <span class="self-start md:self-auto text-xs font-mono font-semibold px-3 py-1 rounded bg-[#f5f2ea] text-[#1b4332] border border-[#e5dfd2]">
+            69 Crop Agronomic Profiles
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- Narrative & Scientific Breakdown (7 Cols) -->
+          <div class="lg:col-span-7 space-y-4 text-xs sm:text-sm text-[#3c4c44] leading-relaxed">
+            <p>
+              <strong class="text-[#1a2420] font-semibold">What it does:</strong> Analyzes your farm's empirical soil chemical attributes and 14-day weather forecasts to rank crops by physiological suitability, yield expectation, and projected profit.
+            </p>
+            <p>
+              <strong class="text-[#1a2420] font-semibold">Inputs used:</strong> Available Nitrogen (N), Phosphorus (P), Potassium (K) in kg/ha, soil pH balance, Organic Carbon %, mean temperature (°C), relative humidity (%), expected rainfall (mm), and acreage.
+            </p>
+            <p>
+              <strong class="text-[#1a2420] font-semibold">Outputs produced:</strong> Ranked list of candidate crops with a suitability index (0–100%), projected quintals per acre, net profit margin estimate (₹), and an explainable breakdown of limiting soil or climatic factors.
+            </p>
+            <p>
+              <strong class="text-[#1a2420] font-semibold">How it helps:</strong> Prevents planting crops that will suffer nutrient lockout or heat stress, protecting the grower's capital before seed purchase.
+            </p>
+
+            <div class="p-3.5 rounded-lg bg-[#fbfaf7] border border-[#e5dfd2] text-xs text-[#67776f] space-y-1">
+              <span class="font-bold text-[#7c4a27] font-mono block uppercase text-[10px]">Agronomic Note & Limitation:</span>
+              <span>Suitability models reflect state agricultural university trial datasets; anomalous macro-climatic disasters should be confirmed against the Weather Risk Matrix.</span>
+            </div>
+
+            <div class="pt-2">
+              <a href="./index.html#/crop-recommendation" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-bold text-white bg-[#1b4332] hover:bg-[#123325] transition">
+                <span>Run Crop Suitability Analysis</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Interactive Specimen Card (5 Cols) -->
+          <div class="lg:col-span-5 scorecard-tile p-4 border border-[#e5dfd2] space-y-3">
+            <div class="flex items-center justify-between border-b border-[#e5dfd2] pb-2">
+              <span class="text-xs font-bold text-[#1a2420] font-mono">Sample Suitability Evaluation</span>
+              <span class="text-[10px] font-mono font-bold text-[#2d6a4f] bg-[#eaf2ec] px-2 py-0.5 rounded">
+                94% Match Score
+              </span>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <div class="w-14 h-14 rounded-lg overflow-hidden border border-[#d2c9b8] shrink-0 bg-[#e5dfd2]">
+                <img src="images/healthy_crops/wheat_healthy.jpg" alt="Healthy Wheat Crop" class="w-full h-full object-cover" />
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-[#1a2420]">Wheat (Triticum aestivum)</h4>
+                <p class="text-xs text-[#67776f] font-mono">Variety: HD-2967 • Season: Rabi</p>
+                <p class="text-xs text-[#2d6a4f] font-semibold mt-0.5">Projected Yield: 18.5 Qtl / Acre</p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2 text-xs font-mono pt-1">
+              <div class="p-2 rounded bg-[#ffffff] border border-[#e5dfd2]">
+                <span class="text-[10px] text-[#67776f] block">NPK Compatibility</span>
+                <span class="text-xs font-bold text-[#1b4332]">Optimal (N-P-K Synced)</span>
+              </div>
+              <div class="p-2 rounded bg-[#ffffff] border border-[#e5dfd2]">
+                <span class="text-[10px] text-[#67776f] block">Est. Net Margin</span>
+                <span class="text-xs font-bold text-[#1b4332]">₹28,400 / Acre</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- =================================================== -->
+      <!-- Pillar 2: AI Plant Disease Screening & Pathology   -->
+      <!-- =================================================== -->
+      <div id="disease-screening" class="editorial-card p-6 sm:p-8 bg-[#ffffff] border border-[#d2c9b8] space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#e5dfd2] pb-5">
+          <div class="space-y-1">
+            <div class="inline-flex items-center gap-2 text-xs font-mono text-[#4d6b53] font-semibold uppercase">
+              <span>Module 02</span>
+              <span>•</span>
+              <span>Computer Vision Diagnostic</span>
+            </div>
+            <h3 class="text-xl sm:text-2xl font-bold text-[#1a2420] font-serif">
+              Plant Disease Screening & Foliar Pathology
+            </h3>
+          </div>
+          <span class="self-start md:self-auto text-xs font-mono font-semibold px-3 py-1 rounded bg-[#f5f2ea] text-[#1b4332] border border-[#e5dfd2]">
+            271 Foliar Pathologies
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- Visual Diagnostic Benchmark (5 Cols) -->
+          <div class="lg:col-span-5 space-y-3">
+            <div class="scorecard-tile p-4 border border-[#e5dfd2] space-y-3">
+              <div class="flex items-center justify-between border-b border-[#e5dfd2] pb-2">
+                <span class="text-xs font-bold text-[#1a2420] font-mono">Foliar Inspection Specimen</span>
+                <span class="text-[10px] font-mono font-bold text-[#b45309] bg-[#fef3c7] px-2 py-0.5 rounded">
+                  Cotton Leaf Blight (91.8%)
+                </span>
+              </div>
+
+              <!-- Real Foliar Specimen -->
+              <div class="relative w-full h-44 rounded-lg overflow-hidden border border-[#d2c9b8] bg-[#e5dfd2]">
+                <img src="images/healthy_crops/cotton_healthy.jpg" alt="Cotton foliar tissue inspected for pathological symptoms" class="w-full h-full object-cover" />
+                <div class="absolute bottom-2 left-2 bg-[#ffffff]/95 px-2 py-0.5 rounded text-[10px] font-mono text-[#1a2420] border border-[#d2c9b8]">
+                  Crop: Cotton (Gossypium hirsutum)
+                </div>
+              </div>
+
+              <!-- Multi-Pillar Remedy Summary -->
+              <div class="space-y-1.5 text-xs">
+                <div class="flex items-center justify-between text-[11px] font-mono">
+                  <span class="text-[#67776f]">Stage:</span>
+                  <span class="text-[#b45309] font-bold">Early Foliar Spread</span>
+                </div>
+                <div class="flex items-center justify-between text-[11px] font-mono">
+                  <span class="text-[#67776f]">Recommended Chemical:</span>
+                  <span class="text-[#1a2420] font-semibold">Copper Oxychloride (30g / 15L)</span>
+                </div>
+                <div class="flex items-center justify-between text-[11px] font-mono">
+                  <span class="text-[#67776f]">Biological Alternative:</span>
+                  <span class="text-[#2d6a4f] font-semibold">Pseudomonas fluorescens (5g / L)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Narrative Breakdown (7 Cols) -->
+          <div class="lg:col-span-7 space-y-4 text-xs sm:text-sm text-[#3c4c44] leading-relaxed">
+            <p>
+              <strong class="text-[#1a2420] font-semibold">What it does:</strong> Examines uploaded foliar photographs to identify crop pathologies, determine disease severity, and provide actionable Integrated Pest Management (IPM) protocols.
+            </p>
+            <p>
+              <strong class="text-[#1a2420] font-semibold">Inputs used:</strong> Clear foliar leaf image (JPG/PNG), selected or auto-detected crop species, and observed lesion patterns.
+            </p>
+            <p>
+              <strong class="text-[#1a2420] font-semibold">Outputs produced:</strong> Identified pathogen name, diagnostic confidence score (%), healthy reference baseline comparison, and three-pillar remedies (biological, chemical knapsack dosage, and cultural field practices).
+            </p>
+            <p>
+              <strong class="text-[#1a2420] font-semibold">How it helps:</strong> Catches fungal and bacterial outbreaks early, preventing secondary spread across neighbouring rows and saving input costs on ineffective fungicides.
+            </p>
+
+            <div class="p-3.5 rounded-lg bg-[#fbfaf7] border border-[#e5dfd2] text-xs text-[#67776f] space-y-1">
+              <span class="font-bold text-[#b91c1c] font-mono block uppercase text-[10px]">Diagnostic Disclaimer:</span>
+              <span>Visual computer vision analysis is an early screening aid; critical chemical spray programs should be verified with local Krishi Vigyan Kendra (KVK) extension officers.</span>
+            </div>
+
+            <div class="pt-2">
+              <a href="./index.html#/disease" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-bold text-white bg-[#1b4332] hover:bg-[#123325] transition">
+                <span>Open Disease Screening Bench</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- =================================================== -->
+      <!-- Pillar 3: Interactive 3D Farm Digital Twin         -->
+      <!-- =================================================== -->
+      <div id="farm-twin" class="editorial-card p-6 sm:p-8 bg-[#ffffff] border border-[#d2c9b8] space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#e5dfd2] pb-5">
+          <div class="space-y-1">
+            <div class="inline-flex items-center gap-2 text-xs font-mono text-[#4d6b53] font-semibold uppercase">
+              <span>Module 03</span>
+              <span>•</span>
+              <span>Spatial Digital Twin</span>
+            </div>
+            <h3 class="text-xl sm:text-2xl font-bold text-[#1a2420] font-serif">
+              Interactive 3D Farm Simulator & Canopy Twin
+            </h3>
+          </div>
+          <span class="text-xs font-mono font-semibold px-3 py-1 rounded bg-[#f5f2ea] text-[#1b4332] border border-[#e5dfd2]">
+            HTML5 Canvas PBR Engine
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- Narrative (7 Cols) -->
+          <div class="lg:col-span-7 space-y-4 text-xs sm:text-sm text-[#3c4c44] leading-relaxed">
+            <p>
+              <strong class="text-[#1a2420] font-semibold">What it does:</strong> Renders a real-time, interactive 3D procedural twin of your agricultural plot with volumetric plant canopies, soil stratum depths, and solar trajectory lighting.
+            </p>
+            <p>
+              <strong class="text-[#1a2420] font-semibold">Inputs used:</strong> Crop selection (100+ species supported), days after sowing (DAS), diurnal sun azimuth, and field zone irrigation status.
+            </p>
+            <p>
+              <strong class="text-[#1a2420] font-semibold">Outputs produced:</strong> 360° orbital inspection with pan, zoom, day/night lighting, drip irrigation line status, and root-zone moisture stratification.
+            </p>
+            <p>
+              <strong class="text-[#1a2420] font-semibold">How it helps:</strong> Gives agricultural consultants and growers spatial intuition for plant spacing, shade geometry, and soil moisture retention without physical field visits.
+            </p>
+
+            <div class="p-3.5 rounded-lg bg-[#fbfaf7] border border-[#e5dfd2] text-xs text-[#67776f] space-y-1">
+              <span class="font-bold text-[#1b4332] font-mono block uppercase text-[10px]">Zero-Dependency Architecture:</span>
+              <span>Rendered client-side via optimized procedural canvas mathematics. Operates at a smooth 60 FPS on mobile phones, tablets, and budget laptops without requiring a dedicated GPU.</span>
+            </div>
+
+            <div class="pt-2">
+              <a href="./index.html#/3d-farm" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-bold text-white bg-[#1b4332] hover:bg-[#123325] transition">
+                <span>Launch 3D Farm Engine</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- 3D Twin Preview Frame (5 Cols) -->
+          <div class="lg:col-span-5 scorecard-tile p-4 border border-[#e5dfd2] space-y-3">
+            <div class="flex items-center justify-between border-b border-[#e5dfd2] pb-2">
+              <span class="text-xs font-bold text-[#1a2420] font-mono">Field Twin Viewport</span>
+              <span class="text-[10px] font-mono text-[#1b4332] bg-[#eaf2ec] px-2 py-0.5 rounded font-bold">
+                Live Interactive Mode
+              </span>
+            </div>
+
+            <div class="relative w-full h-48 sm:h-52 rounded-lg overflow-hidden border border-[#d2c9b8] bg-[#e5dfd2]">
+              <img src="images/smart_farm_3d.jpg" alt="3D Farm digital twin rendering procedural crop canopies and soil horizons" class="w-full h-full object-cover" />
+              <div class="absolute bottom-2 left-2 bg-[#ffffff]/90 px-2 py-0.5 rounded text-[10px] font-mono text-[#1a2420] border border-[#d2c9b8]">
+                Canopy: Wheat (Tillering Stage) • Soil: Vertisol
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2 text-xs font-mono">
+              <div class="p-2 rounded bg-[#ffffff] border border-[#e5dfd2]">
+                <span class="text-[10px] text-[#67776f] block">Topsoil Horizon A</span>
+                <span class="text-xs font-bold text-[#1b4332]">42.5% Moisture</span>
+              </div>
+              <div class="p-2 rounded bg-[#ffffff] border border-[#e5dfd2]">
+                <span class="text-[10px] text-[#67776f] block">Root Depth (Z)</span>
+                <span class="text-xs font-bold text-[#1b4332]">45 cm Zone</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- =================================================== -->
+      <!-- Pillar 4: Biological Lifecycle & Mandi Monitor     -->
+      <!-- =================================================== -->
+      <div id="lifecycle-monitoring" class="editorial-card p-6 sm:p-8 bg-[#ffffff] border border-[#d2c9b8] space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#e5dfd2] pb-5">
+          <div class="space-y-1">
+            <div class="inline-flex items-center gap-2 text-xs font-mono text-[#4d6b53] font-semibold uppercase">
+              <span>Module 04</span>
+              <span>•</span>
+              <span>Phenology & Price Discovery</span>
+            </div>
+            <h3 class="text-xl sm:text-2xl font-bold text-[#1a2420] font-serif">
+              5-Stage Biological Lifecycle & APMC Mandi Monitor
+            </h3>
+          </div>
+          <span class="text-xs font-mono font-semibold px-3 py-1 rounded bg-[#f5f2ea] text-[#1b4332] border border-[#e5dfd2]">
+            Sowing ➔ Harvest ➔ Sale
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- 5 Biological Progression Strip (5 Cols) -->
+          <div class="lg:col-span-5 scorecard-tile p-4 border border-[#e5dfd2] space-y-3">
+            <div class="flex items-center justify-between border-b border-[#e5dfd2] pb-2">
+              <span class="text-xs font-bold text-[#1a2420] font-mono">Phenological Timeline Strip</span>
+              <span class="text-[10px] font-mono text-[#2d6a4f] bg-[#eaf2ec] px-2 py-0.5 rounded font-bold">
+                120 Days Cycle
+              </span>
+            </div>
+
+            <div class="relative w-full h-36 rounded-lg overflow-hidden border border-[#d2c9b8] bg-[#e5dfd2]">
+              <img src="images/crop_lifecycle_stages_strip.jpg" alt="5 biological stages of crop development from germination to harvest" class="w-full h-full object-cover" />
+            </div>
+
+            <div class="space-y-2 text-xs">
+              <div class="p-2 rounded bg-[#ffffff] border border-[#e5dfd2] flex items-center justify-between font-mono">
+                <span class="text-[#67776f]">APMC Modal Rate:</span>
+                <span class="text-[#1b4332] font-bold">₹2,475 / Qtl</span>
+              </div>
+              <div class="p-2 rounded bg-[#ffffff] border border-[#e5dfd2] flex items-center justify-between font-mono">
+                <span class="text-[#67776f]">MSP Benchmark:</span>
+                <span class="text-[#2d6a4f] font-bold">₹2,275 / Qtl (+₹200 premium)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Narrative Breakdown (7 Cols) -->
+          <div class="lg:col-span-7 space-y-4 text-xs sm:text-sm text-[#3c4c44] leading-relaxed">
+            <p>
+              <strong class="text-[#1a2420] font-semibold">What it does:</strong> Schedules and tracks all 5 biological crop growth stages with actionable dates for irrigation volume, protective spray application, harvest cuts, and APMC Mandi selling.
+            </p>
+            <p>
+              <strong class="text-[#1a2420] font-semibold">Inputs used:</strong> Actual sowing date, registered crop variety, regional APMC Mandi modal price databases, and central MSP tables.
+            </p>
+            <p>
+              <strong class="text-[#1a2420] font-semibold">Outputs produced:</strong> Precise watering volume schedule (Liters/Acre), protective knapsack spray calendar with exact dosages, harvest maturity signs, and wholesale market rate comparisons.
+            </p>
+            <p>
+              <strong class="text-[#1a2420] font-semibold">How it helps:</strong> Prevents terminal moisture stress and under-watering during grain fill, while helping the farmer avoid distress sales by targeting favorable market price windows.
+            </p>
+
+            <div class="p-3.5 rounded-lg bg-[#fbfaf7] border border-[#e5dfd2] text-xs text-[#67776f] space-y-1">
+              <span class="font-bold text-[#b45309] font-mono block uppercase text-[10px]">Market Arrival Notice:</span>
+              <span>Wholesale APMC price quotes reflect modal market rates; realized farmer-gate prices depend on grain moisture content, physical purity, and quality grading.</span>
+            </div>
+
+            <div class="pt-2">
+              <a href="./index.html#/crop-monitor" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-bold text-white bg-[#1b4332] hover:bg-[#123325] transition">
+                <span>View Lifecycle & Mandi Monitor</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- 5. PRACTICAL OPERATIONAL WORKFLOW                         -->
+  <!-- ========================================================= -->
+  <section id="operational-workflow" class="py-16 sm:py-20 bg-[#ffffff] border-b border-[#e5dfd2]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      
+      <div class="max-w-3xl space-y-2">
+        <span class="text-xs font-bold uppercase tracking-wider text-[#4d6b53] font-mono">STEP-BY-STEP PROCESS</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-[#1a2420] font-serif">
+          How Farm Data Becomes an Actionable Field Plan
+        </h2>
+        <p class="text-xs sm:text-sm text-[#4b554e] leading-relaxed">
+          From soil sampling to market sale: an empirical five-step workflow designed for actual farm operations.
+        </p>
+      </div>
+
+      <!-- 5 Sequential Workflow Steps -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        
+        <!-- Step 1 -->
+        <div class="p-4 rounded-xl bg-[#fbfaf7] border border-[#e5dfd2] space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="w-7 h-7 rounded-full bg-[#1b4332] text-white flex items-center justify-center font-mono font-bold text-xs">1</span>
+            <i data-lucide="test-tube" class="w-4 h-4 text-[#4d6b53]"></i>
+          </div>
+          <div>
+            <h4 class="text-xs font-bold text-[#1a2420] font-display">Soil & Farm Profiling</h4>
+            <p class="text-[11px] text-[#67776f] mt-1 leading-snug">
+              Input laboratory soil test values (N, P, K, pH) or plot farm boundaries on the interactive GIS map.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="p-4 rounded-xl bg-[#fbfaf7] border border-[#e5dfd2] space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="w-7 h-7 rounded-full bg-[#1b4332] text-white flex items-center justify-center font-mono font-bold text-xs">2</span>
+            <i data-lucide="cloud-sun" class="w-4 h-4 text-[#1d4ed8]"></i>
+          </div>
+          <div>
+            <h4 class="text-xs font-bold text-[#1a2420] font-display">Micro-Climate Analysis</h4>
+            <p class="text-[11px] text-[#67776f] mt-1 leading-snug">
+              Evaluate 6 meteorological risk hazards: rainstorm, drought, heat spikes, frost, gale winds, and fungal humidity.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="p-4 rounded-xl bg-[#fbfaf7] border border-[#e5dfd2] space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="w-7 h-7 rounded-full bg-[#1b4332] text-white flex items-center justify-center font-mono font-bold text-xs">3</span>
+            <i data-lucide="cpu" class="w-4 h-4 text-[#4d6b53]"></i>
+          </div>
+          <div>
+            <h4 class="text-xs font-bold text-[#1a2420] font-display">Agronomic Synthesis</h4>
+            <p class="text-[11px] text-[#67776f] mt-1 leading-snug">
+              Generate calibrated crop suitability rankings, water requirements, and foliar disease screening models.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="p-4 rounded-xl bg-[#fbfaf7] border border-[#e5dfd2] space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="w-7 h-7 rounded-full bg-[#1b4332] text-white flex items-center justify-center font-mono font-bold text-xs">4</span>
+            <i data-lucide="calculator" class="w-4 h-4 text-[#7c4a27]"></i>
+          </div>
+          <div>
+            <h4 class="text-xs font-bold text-[#1a2420] font-display">Economic Projection</h4>
+            <p class="text-[11px] text-[#67776f] mt-1 leading-snug">
+              Compare expected crop yields, cultivation expenditure per acre, and net farm gate profit margins.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="p-4 rounded-xl bg-[#fbfaf7] border border-[#e5dfd2] space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="w-7 h-7 rounded-full bg-[#1b4332] text-white flex items-center justify-center font-mono font-bold text-xs">5</span>
+            <i data-lucide="clipboard-check" class="w-4 h-4 text-[#2d6a4f]"></i>
+          </div>
+          <div>
+            <h4 class="text-xs font-bold text-[#1a2420] font-display">5-Stage Execution</h4>
+            <p class="text-[11px] text-[#67776f] mt-1 leading-snug">
+              Execute watering milestones, apply protective spray dosages, monitor harvest cuts, and sell at Mandi peak.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- 6. FINAL CALL TO ACTION                                    -->
+  <!-- ========================================================= -->
+  <section class="py-16 sm:py-20 bg-[#1b4332] text-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+      
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#2d6a4f] text-emerald-100 text-xs font-mono">
+        <i data-lucide="sparkles" class="w-3.5 h-3.5 text-emerald-300"></i>
+        <span>ACCESSIBLE AGRICULTURAL INTELLIGENCE</span>
+      </span>
+
+      <h2 class="text-2xl sm:text-4xl font-bold tracking-tight font-serif text-white">
+        Explore AgroSense Farm Intelligence
+      </h2>
+
+      <p class="text-emerald-100/90 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+        No accounts or subscriptions required for testing. Access the crop suitability model, disease screening bench, 3D farm simulator, and farm management tools directly in your browser.
+      </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-3 pt-3">
+        <a href="./index.html#/onboarding" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-bold text-[#1b4332] bg-white hover:bg-emerald-50 transition shadow-sm">
+          <i data-lucide="layout-dashboard" class="w-4 h-4 text-[#1b4332]"></i>
+          <span>Launch AgroSense Platform</span>
+        </a>
+        <a href="./index.html#/3d-farm" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-semibold text-white bg-[#143d2b] hover:bg-[#0f291e] border border-emerald-600/50 transition">
+          <i data-lucide="box" class="w-4 h-4 text-emerald-300"></i>
+          <span>Open 3D Farm Simulator</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- 7. COMPREHENSIVE EDITORIAL FOOTER                         -->
+  <!-- ========================================================= -->
+  <footer class="bg-[#f5f2ea] border-t border-[#e5dfd2] py-12 text-xs text-[#67776f]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        
+        <!-- Col 1: Identity & Description -->
+        <div class="space-y-3 md:col-span-2">
+          <div class="flex items-center gap-2.5">
+            <div class="w-7 h-7 rounded-lg bg-[#1b4332] flex items-center justify-center text-white shadow-xs">
+              <i data-lucide="sprout" class="w-4 h-4 text-emerald-200"></i>
+            </div>
+            <span class="text-base font-bold text-[#1a2420] font-display">AgroSense Platform</span>
+          </div>
+          <p class="text-xs text-[#67776f] leading-relaxed max-w-md">
+            An agricultural decision intelligence platform designed to bridge soil science, foliar pathology, and weather telemetry with explainable agronomic guidance for farmers, consultants, and researchers.
+          </p>
+          <div class="flex items-center gap-2 text-[11px] font-mono text-[#2d6a4f]">
+            <span class="w-2 h-2 rounded-full bg-[#2d6a4f]"></span>
+            <span>Static Hosting Architecture: Client-Side Modular ES6 & Canvas PBR</span>
+          </div>
+        </div>
+
+        <!-- Col 2: Core Platform Modules -->
+        <div class="space-y-2.5">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-[#1a2420] font-mono">Platform Modules</h4>
+          <ul class="space-y-1.5 text-[#67776f]">
+            <li><a href="./index.html#/crop-recommendation" class="hover:text-[#1b4332] transition">AI Crop Selection Model</a></li>
+            <li><a href="./index.html#/disease" class="hover:text-[#1b4332] transition">Plant Disease Screening</a></li>
+            <li><a href="./index.html#/crop-monitor" class="hover:text-[#1b4332] transition">Crop Lifecycle & Mandi Monitor</a></li>
+            <li><a href="./index.html#/3d-farm" class="hover:text-[#1b4332] transition">3D Farm Simulator</a></li>
+            <li><a href="./index.html#/soil" class="hover:text-[#1b4332] transition">Soil Chemistry Intelligence</a></li>
+            <li><a href="./index.html#/weather" class="hover:text-[#1b4332] transition">Weather Risk Engine</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Management & Tools -->
+        <div class="space-y-2.5">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-[#1a2420] font-mono">Farm Management</h4>
+          <ul class="space-y-1.5 text-[#67776f]">
+            <li><a href="./index.html#/onboarding" class="hover:text-[#1b4332] transition">GIS Farm Map & Zones</a></li>
+            <li><a href="./index.html#/profitability" class="hover:text-[#1b4332] transition">Profitability Calculator</a></li>
+            <li><a href="./index.html#/farm-log" class="hover:text-[#1b4332] transition">Farm Activity Log</a></li>
+            <li><a href="./index.html#/history" class="hover:text-[#1b4332] transition">Historical Seasons & Yields</a></li>
+            <li><a href="./index.html#/subsidies" class="hover:text-[#1b4332] transition">Govt Schemes & Subsidies</a></li>
+            <li><a href="./index.html#/ai-assistant" class="hover:text-[#1b4332] transition">AI Farmer Copilot</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Academic & Scientific Disclaimer -->
+      <div class="pt-6 border-t border-[#e5dfd2] space-y-2 text-[11px] text-[#8a9890]">
+        <p class="leading-relaxed">
+          <strong class="text-[#67776f]">Academic & Agronomic Disclaimer:</strong> AgroSense is an academic and research agricultural decision intelligence platform designed for national-level college presentation. Agricultural recommendations are calculated using ICAR (Indian Council of Agricultural Research) agronomic standards, FAO-56 Penman-Monteith evapotranspiration formulas, and empirical state trial databases. On-ground chemical spraying and significant fertilizer amendments should be verified with local certified agricultural extension officers (Krishi Vigyan Kendra).
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-2 pt-2 text-[#8a9890] font-mono text-[10px]">
+          <div>&copy; 2026 AgroSense Platform. Open-source agricultural decision intelligence.</div>
+          <div>Calibrated with ICAR, AgMIP, and e-NAM APMC Price Discovery Tables.</div>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof lucide !== 'undefined' && lucide.createIcons) {
+        lucide.createIcons();
+      }
+
+      // Mobile menu toggle
+      const mobileBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (mobileBtn && mobileMenu) {
+        mobileBtn.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>
