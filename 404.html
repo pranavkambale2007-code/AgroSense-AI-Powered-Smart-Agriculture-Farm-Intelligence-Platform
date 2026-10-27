@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found — AgroSense</title>
+  <meta name="robots" content="noindex, follow" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <script>
+    // GitHub Pages SPA Single-Page App Hash Redirection
+    // If a visitor or router requests an internal hashable route (e.g., /crop-recommendation)
+    (function() {
+      var path = window.location.pathname;
+      var clean = path.replace(/.*\/([^/]+)$/, '$1');
+      var knownSPARoutes = ['dashboard', 'recommendation', 'satellite', 'sustainability', 'copilot', 'disease', 'crop-recommendation', 'crop-monitor', '3d-farm', 'soil', 'weather', 'onboarding', 'profitability', 'farm-log', 'history', 'subsidies', 'ai-assistant'];
+      if (knownSPARoutes.indexOf(clean) !== -1) {
+        window.location.replace('./index.html#/' + clean);
+      }
+    })();
+  </script>
+</head>
+<body class="bg-[#fbfaf7] text-[#1a2420] font-['Plus_Jakarta_Sans',sans-serif] min-h-screen flex flex-col justify-between antialiased">
+  <header class="border-b border-[#e5dfd2] bg-[#fbfaf7]/90 py-4 px-6">
+    <div class="max-w-5xl mx-auto flex items-center justify-between">
+      <a href="./landing.html" class="flex items-center gap-2.5 text-[#1b4332] font-['Outfit'] font-bold text-lg">
+        <span class="w-8 h-8 rounded-lg bg-[#1b4332] text-white flex items-center justify-center text-sm">🌾</span>
+        AgroSense Platform
+      </a>
+      <a href="./landing.html" class="text-xs font-semibold text-[#1b4332] hover:underline">Back to Landing &rarr;</a>
+    </div>
+  </header>
+
+  <main class="max-w-2xl mx-auto px-6 py-16 text-center my-auto">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-mono mb-4">
+      <span>HTTP 404 &bull; Resource Not Found</span>
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-['Outfit'] font-extrabold text-[#1b4332] tracking-tight mb-4">Page or Module Not Found</h1>
+    <p class="text-sm text-[#67776f] leading-relaxed mb-8 max-w-lg mx-auto">
+      The requested URL was not found on the server. If you were searching for an agronomic model, GIS dashboard, or legal disclosure, use the verified directory below:
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left mb-8">
+      <a href="./landing.html" class="p-4 rounded-xl border border-[#e5dfd2] bg-white hover:border-[#1b4332] hover:shadow-xs transition group">
+        <div class="text-xs font-bold text-[#1a2420] group-hover:text-[#1b4332] font-['Outfit']">Interactive Landing Page &rarr;</div>
+        <div class="text-[11px] text-[#67776f]">3D farm simulator, growth cycle, and platform overview</div>
+      </a>
+      <a href="./index.html" class="p-4 rounded-xl border border-[#e5dfd2] bg-white hover:border-[#1b4332] hover:shadow-xs transition group">
+        <div class="text-xs font-bold text-[#1a2420] group-hover:text-[#1b4332] font-['Outfit']">AgroSense Farm Dashboard &rarr;</div>
+        <div class="text-[11px] text-[#67776f]">Launch full agronomic intelligence workspace</div>
+      </a>
+      <a href="./about.html" class="p-4 rounded-xl border border-[#e5dfd2] bg-white hover:border-[#1b4332] hover:shadow-xs transition group">
+        <div class="text-xs font-bold text-[#1a2420] group-hover:text-[#1b4332] font-['Outfit']">About AgroSense &rarr;</div>
+        <div class="text-[11px] text-[#67776f]">Platform mission, architecture, and scientific standards</div>
+      </a>
+      <a href="./contact.html" class="p-4 rounded-xl border border-[#e5dfd2] bg-white hover:border-[#1b4332] hover:shadow-xs transition group">
+        <div class="text-xs font-bold text-[#1a2420] group-hover:text-[#1b4332] font-['Outfit']">Contact & Inquiries &rarr;</div>
+        <div class="text-[11px] text-[#67776f]">Institutional support and bug dispatch form</div>
+      </a>
+    </div>
+
+    <div class="pt-4 border-t border-[#e5dfd2] flex flex-wrap justify-center gap-3 text-xs text-[#67776f]">
+      <a href="./privacy.html" class="hover:text-[#1b4332]">Privacy Policy</a>
+      <span>&bull;</span>
+      <a href="./cookies.html" class="hover:text-[#1b4332]">Cookie Policy</a>
+      <span>&bull;</span>
+      <a href="./terms.html" class="hover:text-[#1b4332]">Terms</a>
+      <span>&bull;</span>
+      <a href="./disclaimer.html" class="hover:text-[#1b4332]">Disclaimer</a>
+    </div>
+  </main>
+
+  <footer class="border-t border-[#e5dfd2] bg-[#f5f2ea] py-4 text-center text-xs text-[#8a9890]">
+    &copy; 2026 AgroSense Platform &bull; Open-Source Agricultural Decision Intelligence
+  </footer>
+</body>
+</html>
