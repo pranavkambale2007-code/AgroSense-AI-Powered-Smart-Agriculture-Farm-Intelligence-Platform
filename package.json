@@ -1,0 +1,32 @@
+{
+  "name": "agrosense",
+  "version": "2.5.4",
+  "description": "AgroSense Enterprise — Autonomous Agricultural Decision Intelligence Platform",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "build": "node scripts/build.js",
+    "test": "node scripts/test-disease-pipeline.js",
+    "prepare:deploy": "node scripts/prepare-deploy.js",
+    "pack": "powershell -Command \"Compress-Archive -Path js -DestinationPath js-source.zip -Force\"",
+    "unpack": "powershell -Command \"Expand-Archive -Path js-source.zip -DestinationPath . -Force\""
+  },
+  "keywords": [
+    "agriculture",
+    "smart-farming",
+    "ai",
+    "crop-recommendation",
+    "3d-farm-simulator",
+    "machine-learning"
+  ],
+  "author": "AgroSense Team",
+  "license": "MIT",
+  "dependencies": {
+    "@tensorflow/tfjs": "^4.22.0",
+    "geotiff": "^3.0.5",
+    "gsap": "^3.15.0",
+    "motion": "^14.6.0",
+    "three": "^0.186.1"
+  }
+}

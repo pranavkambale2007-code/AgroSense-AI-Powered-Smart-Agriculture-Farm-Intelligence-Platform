@@ -1,0 +1,8 @@
+# AgroSense Robots.txt
+# https://pranavkambale2007-code.github.io/AgroSense-AI-Powered-Smart-Agriculture-Farm-Intelligence-Platform/
+
+User-agent: *
+Allow: /
+
+# Canonical XML Sitemap
+Sitemap: https://pranavkambale2007-code.github.io/AgroSense-AI-Powered-Smart-Agriculture-Farm-Intelligence-Platform/sitemap.xml
